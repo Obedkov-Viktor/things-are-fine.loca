@@ -19,7 +19,7 @@
 
 <main class="content__main">
     <h2 class="content__main-heading">Список задач</h2>
-    <form class="search-form" action="index.php" method="post" autocomplete="off" >
+    <form class="search-form" action="index.php" method="post" autocomplete="off">
         <input class="search-form__input" type="text" name="" value="" placeholder="Поиск по задачам">
         <input class="search-form__submit" type="submit" name="" value="Искать">
     </form>
@@ -40,7 +40,7 @@
 
     <table class="tasks">
         <?php foreach ($tasks as $task) : ?>
-            <tr class="tasks__item task">
+                <tr class="tasks__item task <?= $task['status'] ? 'task--completed' : '' ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox"
@@ -51,7 +51,8 @@
 
                 <td class="task__file">
                     <?php if (!empty($task['file'])) : ?>
-                        <a class="download-link" href="/uploads/<?= htmlspecialchars($task['file']) ?>"><?= htmlspecialchars($task['file']) ?></a>
+                        <a class="download-link"
+                           href="/uploads/<?= htmlspecialchars($task['file']) ?>"><?= htmlspecialchars($task['file']) ?></a>
                     <?php else: ?>
                         <span>Файл отсутствует</span> <!-- Удобный вывод, если файл отсутствует -->
                     <?php endif; ?>
@@ -59,6 +60,5 @@
                 <td class="task__date"><?= htmlspecialchars($task['date_term'] ?? '') ?></td>
             </tr>
         <?php endforeach ?>
-        <!-- показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице -->
     </table>
 </main>
