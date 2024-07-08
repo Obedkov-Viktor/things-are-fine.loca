@@ -26,10 +26,10 @@
 
     <div class="tasks-controls">
         <nav class="tasks-switch">
-            <a href="/" class="tasks-switch__item tasks-switch__item--active">Все задачи</a>
-            <a href="/" class="tasks-switch__item">Повестка дня</a>
-            <a href="/" class="tasks-switch__item">Завтра</a>
-            <a href="/" class="tasks-switch__item">Просроченные</a>
+            <a href="?filter=all" class="tasks-switch__item <?= !isset($_GET['filter']) || $_GET['filter'] === 'all' ? 'tasks-switch__item--active' : '' ?>">Все задачи</a>
+            <a href="?filter=today" class="tasks-switch__item <?= isset($_GET['filter']) && $_GET['filter'] === 'today' ? 'tasks-switch__item--active' : '' ?>">Повестка дня</a>
+            <a href="?filter=tomorrow" class="tasks-switch__item <?= isset($_GET['filter']) && $_GET['filter'] === 'tomorrow'? 'tasks-switch__item--active' : '' ?>">Завтра</a>
+            <a href="?filter=overdue" class="tasks-switch__item <?= isset($_GET['filter']) && $_GET['filter'] === 'overdue' ? 'tasks-switch__item--active' : '' ?>">Просроченные</a>
         </nav>
 
         <label class="checkbox">
@@ -40,11 +40,11 @@
 
     <table class="tasks">
         <?php foreach ($tasks as $task) : ?>
-                <tr class="tasks__item task <?= $task['status'] ? 'task--completed' : '' ?>">
+                <tr class="tasks__item task">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox"
-                               value="1" <?= $task['status'] ? 'checked' : '' ?>>
+                               value="1">
                         <span class="checkbox__text"><?= htmlspecialchars($task['name'] ?? '') ?></span>
                     </label>
                 </td>

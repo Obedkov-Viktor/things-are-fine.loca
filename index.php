@@ -34,6 +34,13 @@ if ($isLoggedIn) {
         $tasks = $taskRepository->getTasksByUserId($user['id']);
     }
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['task_id'], $_POST['status'])) {
+        $taskId = intval($_POST['task_id']);
+        $status = $_POST['status'];
+        $taskRepository->updateTaskStatus($taskId, $status);
+    }
+    $filter = $_GET['filter'] ?? 'all';
+    $tasks = $taskRepository->getTasksByFilter($user['id'], $filter);
     // Пропустить задачу, если она выполнена
 
     $pageTitle = 'Главная страница (авторизованный пользователь)';
